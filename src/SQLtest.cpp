@@ -41,10 +41,10 @@ try {
   stmt = con->createStatement();
   res = stmt->executeQuery("SELECT * from SensorData");
   while (res->next()) {
-    cout << "\t... MySQL replies: ";
+    cout << "\t... temperature: ";
     /* Access column data by alias or column name */
     cout << res->getString("temp") << endl;
-    cout << "\t... MySQL says it again: ";
+    cout << "\t... humidity: ";
     /* Access column fata by numeric offset, 1 is the first column */
     cout << res->getString("humidity") << endl;
   }
