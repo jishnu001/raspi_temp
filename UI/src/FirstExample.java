@@ -1,10 +1,10 @@
 
 import java.sql.*;
-
+import java.util.*;
 public class FirstExample {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost/EMP";
+   static final String DB_URL = "jdbc:mysql://localhost/mydb";
 
    //  Database credentials
    static final String USER = "root";
@@ -25,17 +25,23 @@ public class FirstExample {
       System.out.println("Creating statement...");
       stmt = conn.createStatement();
       String sql;
-      sql = "SELECT temp FROM SensorData";
+      sql = "SELECT temp,humidity,timestamp FROM SensorData order by timestamp DESC";
       ResultSet rs = stmt.executeQuery(sql);
 
       //STEP 5: Extract data from result set
       while(rs.next()){
          //Retrieve by column name
          int temp  = rs.getInt("temp");
-         
+         int humidity  = rs.getInt("humidity");
+	 Timestamp timestamp;
+	 timestamp  = rs.getTimestamp("timestamp");
+	java.util.Date date = timestamp;
 
          //Display values
-         System.out.print("Temperature: " + temp);
+         System.out.println("Temperature: " + temp);
+	 System.out.println("Humidity: " + humidity);
+	 System.out.println("Timestamp: " + date);
+
          
       }
       //STEP 6: Clean-up environment
