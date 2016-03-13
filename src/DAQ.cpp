@@ -28,7 +28,6 @@ std::cout<<"\nTemperature: "<<temp<<"\nHumidity: "<<hum<<std::endl;
 else
  std::cout<<"\nReading...\n";
 
-
 try {
   sql::Driver *driver;
   sql::Connection *con;
@@ -43,24 +42,12 @@ try {
 
 
   stmt = con->createStatement();
-  pstmt = con->prepareStatement("INSERT INTO SensorData (temp,humidity) VALUES (?,?)");
-  //for (int i = 1; i <= 10; i++) {
-    pstmt->setInt(1, temp);
-    pstmt->setInt(2, hum);
+  pstmt = con->prepareStatement("INSERT INTO SensorData (temp,humidity,timestamp) VALUES (?,?,now())");
+    pstmt->setDouble(1, temp);
+    pstmt->setDouble(2, hum);
     pstmt->executeUpdate();
-  //}
   delete pstmt;
 
-/*
-  res = stmt->executeQuery("SELECT * from SensorData");
-  while (res->next()) {
-    cout << "\t... temperature: ";
-    /* Access column data by alias or column name */
-  /*  cout << res->getString("temp") << endl;
-    cout << "\t... humidity: ";
-    /* Access column fata by numeric offset, 1 is the first column */
-  /*  cout << res->getString("humidity") << endl;
-  }*/
   delete res;
   delete stmt;
   delete con;
