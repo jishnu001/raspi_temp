@@ -19,9 +19,9 @@ USE `mydb` ;
 -- Table `mydb`.`SensorData`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`SensorData` (
-  `id` INT NOT NULL,
-  `temp` INT NULL,
-  `humidity` INT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `temp` FLOAT NULL,
+  `humidity` FLOAT NULL COMMENT '	',
   `timestamp` DATETIME NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
