@@ -16,13 +16,14 @@ extern "C"{
 
 using namespace std;
 
+int pin=4;
+int dev=11;
+
 int main(int argc, char *argv[])
 {
 
  float temp=0.0;
  float hum=0.0;
-
- 
 
 
  try {
@@ -32,15 +33,16 @@ int main(int argc, char *argv[])
   sql::ResultSet *res;
   /* Create a connection */
   driver = get_driver_instance();
-  con = driver->connect("tcp://127.0.0.1:3306", "root", "titansx43");
+  con = driver->connect("tcp://127.0.0.1:3306", "root", "mysqlpassword123");
   /* Connect to the MySQL test database */
   con->setSchema("mydb");
 
 while(1)
 {
- if(pi_dht_read(11,4,&hum,&temp)==0)
+ if(pi_dht_read(dev,pin,&hum,&temp)==0)
  {
-  cout<<"\nTemperature: "<<temp<<"\nHumidity: "<<hum<<endl;
+  cout.precision(2);
+  cout<<"\nTemperature: "<<fixed<<temp<<"\nHumidity: "<<fixed<<hum<<endl;
  }
  else
   {
@@ -55,7 +57,7 @@ while(1)
   pstmt->executeUpdate();
   delete pstmt;
   WAIT:
-   std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+   std::this_thread::sleep_for(std::chrono::milliseconds(50000));
 
  }
   delete res;
