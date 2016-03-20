@@ -141,6 +141,7 @@ int pi_dht_read(int type, int pin, float* humidity, float* temperature) {
       // Get humidity and temp for DHT11 sensor.
       *humidity = (float)data[0];
       *temperature = (float)data[2];
+	
     }
     else if (type == DHT22) {
       // Calculate humidity and temp for DHT22 sensor.
